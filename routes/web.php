@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/list', [App\Http\Controllers\CompaniesController::class, 'showList'])->name('list');
 
 Auth::routes();
 
