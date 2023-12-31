@@ -9,4 +9,9 @@ class sales extends Model
 {
     use HasFactory;
     protected $table = 'sales';
+
+    public function products ()
+{
+    return $this->belongsTo(products::class,'App\Models\Product');
+}
 }

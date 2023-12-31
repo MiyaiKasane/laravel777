@@ -9,4 +9,14 @@ class products extends Model
 {
     use HasFactory;
     protected $table = 'products';
+
+    public function companies ()
+{
+    return $this->HasMany(companies::class,'App\Models\Company');
+}
+
+    public function sales ()
+{
+    return $this->HasMany(sales::class,'App\Models\Sale');
+}
 }

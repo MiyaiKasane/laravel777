@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('product_id');
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }

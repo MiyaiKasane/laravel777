@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('stock');
             $table->text('comment');
             $table->string('img_path');
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }
