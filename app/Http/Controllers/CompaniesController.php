@@ -6,10 +6,19 @@ use Illuminate\Support\Facades\DB; //クエリビルダを使用する宣言
 use Illuminate\Http\Request; //アプリケーション内でリクエストを処理するためのクラス
 use APP\Models\Company; //Companyモデルを使うための宣言
 use APP\Models\Product; //Productモデルを使うための宣言
+use APP\Models\Sale; //Saleモデルを使うための宣言
+use APP\Models;
 
 class CompaniesController extends Controller
 {
-    public function showList() {
+    public function showList()
+    {
         return view('list');
+        $posts = User::find(1)->posts;
+
+        foreach($posts as $post)
+        {
+            dump($post->title);
+        }
     }
 }

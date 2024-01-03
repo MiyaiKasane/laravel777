@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('company_name');
             $table->string('street_address');
             $table->string('representative_name');
-            $table->timestamp('last_used_at')->nullable();
-            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class products extends Model
 {
@@ -12,11 +13,11 @@ class products extends Model
 
     public function companies ()
 {
-    return $this->HasMany(companies::class,'App\Models\Company');
+    return $this->hasMany(companies::class,'App\Models\Company');
 }
 
     public function sales ()
 {
-    return $this->HasMany(sales::class,'App\Models\Sale');
+    return $this->hasMany(sales::class,'App\Models\Sale');
 }
 }
