@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +11,11 @@ class products extends Model
 {
     use HasFactory;
     protected $table = 'products';
+
+    public function products ()
+{
+    $product = Product::all()->get();
+}
 
     public function companies ()
 {

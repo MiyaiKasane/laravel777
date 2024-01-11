@@ -11,14 +11,18 @@ use APP\Models;
 
 class CompaniesController extends Controller
 {
+
     public function showList()
     {
         return view('list');
-        $posts = User::find(1)->posts;
 
-        foreach($posts as $post)
-        {
-            dump($post->title);
-        }
+    }
+
+    public function rilation (){
+        $model = new Product();
+        $products = $model->products();
+        dd($products);
+        return view('companies.rilation',['products' => $products]);
     }
 }
+
