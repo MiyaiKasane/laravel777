@@ -12,17 +12,17 @@ use APP\Models;
 class CompaniesController extends Controller
 {
 
+    public function preView(){
+        $model = new Product();
+        $products = $model->products();
+        dd($products);
+    }
+    
     public function showList()
     {
         return view('list');
 
     }
 
-    public function rilation (){
-        $model = new Product();
-        $products = $model->products();
-        dd($products);
-        return view('companies.rilation',['products' => $products]);
-    }
 }
 

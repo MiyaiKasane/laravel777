@@ -15,6 +15,7 @@ use App\Http\Controllers\CompaniesController;
 */
 
 Route::get('/list', [App\Http\Controllers\CompaniesController::class, 'showList'])->name('list');
+Route::get('/list', [App\Http\Controllers\CompaniesController::class, 'preView'])->name('list');
 
 Auth::routes();
 
