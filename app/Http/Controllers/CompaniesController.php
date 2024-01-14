@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Database\Eloquent\Model; //エロクワントを使用するための宣言
 use Illuminate\Support\Facades\DB; //クエリビルダを使用する宣言
 use Illuminate\Http\Request; //アプリケーション内でリクエストを処理するためのクラス
-use APP\Models\Company; //Companyモデルを使うための宣言
-use APP\Models\Product; //Productモデルを使うための宣言
-use APP\Models\Sale; //Saleモデルを使うための宣言
-use APP\Models;
+use App\Models\Company; //Companyモデルを使うための宣言
+use App\Models\Product; //Productモデルを使うための宣言
+use App\Models\Sale; //Saleモデルを使うための宣言
+use App\Models;
 
 class CompaniesController extends Controller
 {
@@ -17,7 +18,7 @@ class CompaniesController extends Controller
         $products = $model->products();
         dd($products);
     }
-    
+
     public function showList()
     {
         return view('list');
