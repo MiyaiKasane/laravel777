@@ -12,7 +12,6 @@ use App\Models;
 
 class CompaniesController extends Controller
 {
-
     public function preView(){
         $model = new Products();
         $products = $model->products();
@@ -22,8 +21,6 @@ class CompaniesController extends Controller
     public function showList()
     {
         return view('list');
-
     }
-
 }
 
