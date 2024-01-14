@@ -14,7 +14,7 @@ class CompaniesController extends Controller
 {
 
     public function preView(){
-        $model = new Product();
+        $model = new Products();
         $products = $model->products();
         dd($products);
     }
