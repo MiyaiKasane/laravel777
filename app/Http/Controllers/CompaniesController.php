@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model; //エロクワントを使用するた�
 use Illuminate\Support\Facades\DB; //クエリビルダを使用する宣言
 use Illuminate\Http\Request; //アプリケーション内でリクエストを処理するためのクラス
 use App\Models\Companies; //Companyモデルを使うための宣言
-use App\Models\Products; //Productモデルを使うための宣言
+use App\Models\Product\Products; //Productモデルを使うための宣言
 use App\Models;
 
 class CompaniesController extends Controller
