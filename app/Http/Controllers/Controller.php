@@ -11,5 +11,10 @@ use App\Models\Product\products; //Productモデルを使うための宣言
 
 class Controller extends BaseController
 {
+    public function preView(){
+        $model = new Product();
+        $products = $model->products();
+        dd($products);
+    }
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
