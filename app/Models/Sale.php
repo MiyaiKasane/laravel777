@@ -13,7 +13,7 @@ class sales extends Model
     protected $table = 'sales';
 
     public function products ()
-{
-    return $this->belongsTo(products::class,'App\Models\Product');
-}
+    {
+        return $this->hasMany(products::class,'App\Models\Product');
+    }
 }

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Company; //Companyモデルを使うための宣言
-use App\Models\Product; //Productモデルを使うための宣言
 use App\Http\Controllers\CompaniesController;
 
 class Product extends Model
@@ -15,18 +14,19 @@ class Product extends Model
     protected $table = 'products';
 
     public function products ()
-{
-    $product = Product::all()->get();
-
-}
+    {
+        $product = Product::all();
+        $controller = new CompaniesController();
+        return $controller->preView();
+    }
 
     public function companies ()
-{
-    return $this->hasMany(companies::class,'App\Models\Company');
-}
+    {
+        return $this->hasMany(companies::class,'App\Models\Company');
+    }
 
     public function sales ()
-{
-    return $this->hasMany(sales::class,'App\Models\Sale');
-}
+    {
+        return $this->belongsTo(sales::class,'App\Models\Sale');
+    }
 }

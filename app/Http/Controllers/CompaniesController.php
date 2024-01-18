@@ -11,15 +11,19 @@ use App\Models;
 
 class CompaniesController extends Controller
 {
-    public function preView(){
+    public function preView()
+    {
         $model = new Product();
         $products = $model->products();
+        //$product = new Product();
+        //$product = Product::all();
         dd($products);
+        return view('list');
     }
 
     public function showList()
     {
-        return view('list',['products'=>$products]);
+        return view('list');
     }
 }
 
