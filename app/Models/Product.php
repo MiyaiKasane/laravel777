@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\Company; //Companyモデルを使うための宣言
+use App\Models\Product; //Productモデルを使うための宣言
+use App\Http\Controllers\CompaniesController;
 
 class Product extends Model
 {
@@ -13,7 +16,7 @@ class Product extends Model
 
     public function products ()
 {
-    $product = Product::all();
+    $product = Product::all()->get();
 
 }
 
