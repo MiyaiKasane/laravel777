@@ -11,7 +11,7 @@ use App\Models;
 
 class CompaniesController extends Controller
 {
-    public function preView($id,$cost){
+    public function preView(){
         $model = new Product();
         $products = $model->products();
         dd($products);
@@ -19,7 +19,7 @@ class CompaniesController extends Controller
 
     public function showList()
     {
-        return view('list');
+        return view('list',['products'=>$products]);
     }
 }
 
