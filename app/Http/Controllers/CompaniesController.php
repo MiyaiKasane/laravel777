@@ -11,13 +11,13 @@ use App\Models;
 
 class CompaniesController extends Controller
 {
-    public function preView(){
+    public function preView($id,$cost){
         $model = new Product();
         $products = $model->products();
         dd($products);
     }
 
-    public function showList($id)
+    public function showList()
     {
         return view('list');
     }
