@@ -17,7 +17,7 @@ class Product extends Model
     {
         $product = Product::all();
         $controller = new CompaniesController();
-        return $controller->preView();
+        return $product = $controller->preView();
     }
 
     public function companies ()
