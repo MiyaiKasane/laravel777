@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class products extends Model
+class Product extends Model
 {
     use HasFactory;
     protected $table = 'products';
 
     public function products ()
 {
-    $product = Product::all()->get();
+    $product = Product::all();
+
 }
 
     public function companies ()
