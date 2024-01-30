@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models;
 use App\Http\Controllers\CompaniesController;
 
 /*
@@ -14,8 +15,12 @@ use App\Http\Controllers\CompaniesController;
 |
 */
 
-Route::get('/list', [App\Http\Controllers\CompaniesController::class, 'showList'])->name('list');
-Route::get('/list', [App\Http\Controllers\CompaniesController::class, 'preView'])->name('list');
+Route::get('/list', [App\Http\Controllers\CompaniesController::class, 'showList'])->name('list');//商品一覧画面
+//Route::get('/test', [App\Http\Controllers\CompaniesController::class, 'showCoName'])->name('test');//表示テスト用
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 

@@ -13,20 +13,21 @@ class Product extends Model
     use HasFactory;
     protected $table = 'products';
 
+
     public function products ()
     {
-        $product = Product::all();
-        $controller = new CompaniesController();
-        return $product = $controller->preView();
+        $product = Self::all();
+        return $product;
+
     }
 
-    public function companies ()
+    public function company ()
     {
-        return $this->hasMany(companies::class,'App\Models\Company');
+        return $this->belongsTo(Company::class,'company_id','id');
     }
 
-    public function sales ()
+    public function sale ()
     {
-        return $this->belongsTo(sales::class,'App\Models\Sale');
+        return $this->belongsTo(Sale::class,'App\Models\Sale');
     }
 }

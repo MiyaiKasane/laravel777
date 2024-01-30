@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('product_id');
+            $table->bigIncrements('product_id');
             $table->timestamps();
         });
     }
