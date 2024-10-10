@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('product_id');
+            $table->integer('product_id');  //bigIncrements->integerに変更。一つのテーブルに2か所のオートインクリメントじゃエラーが出る。
             $table->timestamps();
         });
     }

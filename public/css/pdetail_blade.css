@@ -1,0 +1,86 @@
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p,img, 
+dl, dt, dd, ol, ul, li, form,tbody, tfoot, thead, tr, th, td,
+article, aside,footer, header, nav, section
+{
+    margin: auto;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    box-sizing: border-box;
+    width: auto;
+    vertical-align:baseline;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color:#F5f5f5;
+}
+.box {
+    margin: 0 auto;
+    padding:70px;
+    width: auto;
+    height: auto;
+}
+.newTable {
+    margin: 0 auto;
+    padding: 30px 0px 40px 70px;
+    width: 40%;
+    height: auto;
+    text-align: center;
+    border: 2px solid;
+}
+h2 {
+    font-size: 25px;
+    margin: 20px 15px;
+    padding-left: 50px;
+}
+.Astalisk {
+    color: red;
+}
+.Select {
+    width:170px;
+}
+.Comment {
+    width:165px;
+}
+.newTable th{
+    font-size: 20px;
+    text-align: left;
+}
+.newTable th,td{
+    line-height: 50px;
+}
+.newTable td{
+    padding-left: 70px;
+    line-height: 1.5px;
+}
+.Comment th {
+    line-height: 10px;
+    vertical-align: middle;
+}
+.Comment {
+    line-height: 15px;
+}
+.Button {
+    margin-top: 35px;
+    padding-right: 100px;
+}
+.edit {
+    margin-right: 50px;
+    background-color: rgb(238, 137, 59);
+    border-width: 1px;
+    border-radius: 3px;
+}
+.edit:hover {
+    opacity: 0.7;
+}
+.back {
+    background-color: lightskyblue;
+    border-width: 1px;
+    border-radius: 3px;
+}
+.back:hover {
+    opacity: 0.7;
+}

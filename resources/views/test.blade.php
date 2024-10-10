@@ -46,9 +46,9 @@
         </tr>
     </thead>
     <tbody>
-    @foreach ($articles as $article)
+    @foreach ($products $product)
         <tr>
-            <td>{{ $article->id }}</td>
+            <td>{{ $products->productName }}</td>
             <td>{{ $article->title }}</td>
             <td>{{ $article->url }}</td>
         </tr>

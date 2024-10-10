@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Http\Controllers\CompaniesController;
 
-class Companies extends Model
+class Company extends Model
 {
     use HasFactory;
     protected $table = 'companies';
@@ -17,4 +17,11 @@ class Companies extends Model
 {
     return $this->hasMany(Product::class,'company_id','id');
 }
+
+public function getList()   //
+{
+    $company = Self::all();
+    return $company;
+}
+
 }

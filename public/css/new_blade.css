@@ -1,0 +1,84 @@
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p,img, 
+dl, dt, dd, ol, ul, li, form,tbody, tfoot, thead, tr, th, td,
+article, aside,footer, header, nav, section
+{
+    margin: auto;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    box-sizing: border-box;
+    width: auto;
+    vertical-align:baseline;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color:#F5f5f5;
+}
+.box {
+    margin: 0 auto;
+    padding:70px;
+    width: auto;
+    height: auto;
+}
+.newForm {
+    width: 45%;
+    height: auto;
+    padding: 40px 30px 40px 75px;
+    border: 2px solid;
+}
+h2 {
+    font-size: 25px;
+    margin: 20px 15px;
+    padding-left: 50px;
+}
+.Astalisk {
+    color: red;
+}
+.formSell {
+    margin: 10px 0;
+}
+.thLabel {
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block; /*dispay～widthまでの指示で項目の配置を調整してる*/
+    vertical-align: top;
+    width: 150px;
+}
+button {
+    margin-top: 20px;
+    border-radius: 5px;
+}
+.newsubmit {
+    margin: 0 0 0 100px;
+    padding: 3px 7px;
+    background-color: orange;
+    border: 1px solid;
+}
+.back {
+    margin-left:50px;
+    padding: 3px 7px;
+    background-color: skyblue;
+    border: 1px solid;
+}
+.newsubmit:hover {
+    opacity: 0.7;
+}
+.back:hover {
+    opacity: 0.7;
+}
+.alert {
+    font-weight: bold;
+    margin: 0 0 30px 0;
+    width: 280px;
+}
+.error {
+    background-color: rgb(255, 182, 182);
+    padding: 5px 25px;
+}
+.success {
+    background-color: rgb(161, 222, 255);
+    padding: 5px 25px;
+}

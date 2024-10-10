@@ -17,3 +17,4 @@ class Sales extends Model
         return $this->hasMany(Product::class,'App\Models\Product');
     }
 }
+
