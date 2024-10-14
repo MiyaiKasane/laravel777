@@ -61,10 +61,13 @@ class Product extends Model
         $product = $this->setData($product,$request,$image_path);
         $product -> save();
     }
+
+    
     
     public function dataSave($id, $request, $image_path)//更新する処理
     {
-    
+        dd('dataSaveのとこ　更新するID: ' . $id);
+
         $product = Product::find($id); //既存のデータから編集したいデータを取得
         \Log::info('dataSave通過');
         if($product){

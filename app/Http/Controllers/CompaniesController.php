@@ -64,9 +64,10 @@ class CompaniesController extends Controller
         }
     }
 
-    public function updateData(PostRequest $request,$id)
+    public function updateData(PostRequest $product,$request,$id)
     {
         \Log::info('updataData通過');
+        dd('updateDateのとこ　更新するID: ' . $id);
         $validatedData = $request->validated();
 
         $image_path = null; // 画像が含まれていない場合の処理
@@ -85,7 +86,7 @@ class CompaniesController extends Controller
 
             DB::commit();
             \Log::info('商品情報が更新されました。');
-            return redirect()->route('pedit', ['id' => $id])->with('success', '商品情報が更新されました。');
+            return redirect()->route('pedit', ['product' => $product,'id' => $id])->with('success', '商品情報が更新されました。');
         } 
         catch (\Exception $e) 
         {
@@ -103,6 +104,7 @@ class CompaniesController extends Controller
 
     public function showNewform()//新規登録ページを表示するための処理
     {
+        \Log::info('showNewform通過 ID:' . $id);
         $model_company = new Company();
         $companies = $model_company->getList(); //メーカー名の選択肢（@foreach）を表示してる
         return view('new',['companies' => $companies]);
@@ -110,15 +112,18 @@ class CompaniesController extends Controller
 
     public function showPdetail($id)//商品詳細ページを表示するための処理
     {
+        \Log::info('showPdetail通過 ID:' . $id);
         $product = Product::find($id); //選択した商品のIDを取得してる
         return view('pdetail', ['product'=> $product]);
     }
 
     public function showPedit($id)//商品情報詳細ページを編集するための処理
     {
+        \Log::info('showPedit通過 ID:' . $id);
         $product = Product::find($id); //選択した商品のIDを取得してる
+        dd('showPeditのとこ　更新するID: ' . $id);
         $companies = Company::all();   //メーカー名の選択肢を取得してる
-        return view('pedit', compact('product','companies')); //compact()で引数を２つpedit.viewに表示されるようにしてる
+        return view('pedit', compact('product','companies','id')); //compact()で引数を２つpedit.viewに表示されるようにしてる
     }
 
     public function destroy($id)//削除ボタンの処理

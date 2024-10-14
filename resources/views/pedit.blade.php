@@ -32,7 +32,7 @@
             @endif
 
             <div class="newTable">
-                <form action="{{route('pedit_update', $product->id)}}" method="post" enctype='multipart/form-data' class='editForm'>
+                <form action="{{route('pedit', $product->id)}}" method="post" enctype='multipart/form-data' class='editForm'>
                     @csrf
                     @method('put')
                     <div class="formSell select_id">
