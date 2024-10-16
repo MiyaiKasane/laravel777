@@ -66,8 +66,8 @@ class CompaniesController extends Controller
 
     public function updateData(PostRequest $product,$request,$id)
     {
-        \Log::info('updataData通過');
         dd('updateDateのとこ　更新するID: ' . $id);
+        \Log::info('updateData通過');
         $validatedData = $request->validated();
 
         $image_path = null; // 画像が含まれていない場合の処理
@@ -121,7 +121,6 @@ class CompaniesController extends Controller
     {
         \Log::info('showPedit通過 ID:' . $id);
         $product = Product::find($id); //選択した商品のIDを取得してる
-        dd('showPeditのとこ　更新するID: ' . $id);
         $companies = Company::all();   //メーカー名の選択肢を取得してる
         return view('pedit', compact('product','companies','id')); //compact()で引数を２つpedit.viewに表示されるようにしてる
     }
