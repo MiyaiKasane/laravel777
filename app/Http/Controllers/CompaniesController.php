@@ -32,7 +32,7 @@ class CompaniesController extends Controller
     
     public function registSubmit(PostRequest $request) //データを新しく登録して保存する
     {
-        \Log::info('registSubmit通過');
+        //\Log::info('registSubmit通過');
         /*入力されたデータがバリデーションルールに従ってるかチェックしてる
         ↓これがあればコントローラーでバリデーションルール（required|integer…)とかを書く必要がない。*/
         $validatedData = $request->validated();
@@ -64,10 +64,10 @@ class CompaniesController extends Controller
         }
     }
 
-    public function updateData(PostRequest $product,$request,$id)
+    public function updateData(PostRequest $request,$id)
     {
-        dd('updateDateのとこ　更新するID: ' . $id);
-        \Log::info('updateData通過');
+        //dd('updateDataのとこ　更新するID: ' . $id);
+        //\Log::info('updateData通過　①');
         $validatedData = $request->validated();
 
         $image_path = null; // 画像が含まれていない場合の処理
@@ -77,16 +77,17 @@ class CompaniesController extends Controller
             $image->storeAs('public/images', $file_name); // public/images フォルダ内に、取得したファイル名で保存
             $image_path = 'storage/images/'. $file_name; // データベース登録用に、ファイルパスを作成
         }
+        //\Log::info('updateDataのバリデーション前通過　更新するID:② ' . $id);
+
 
         DB::beginTransaction();
         try 
         {
             $model = new Product();
             $model->dataSave($id, $request, $image_path); // 更新メソッドを呼び出し
-
+            //\Log::info('dataメソッド呼び出し後、商品情報が更新されました。③');
             DB::commit();
-            \Log::info('商品情報が更新されました。');
-            return redirect()->route('pedit', ['product' => $product,'id' => $id])->with('success', '商品情報が更新されました。');
+            return redirect()->route('pdetail', ['id' => $id])->with('success', '商品情報が更新されました。④');
         } 
         catch (\Exception $e) 
         {
@@ -97,14 +98,9 @@ class CompaniesController extends Controller
 
     }
 
-    /*public function __construct() //勝手にログインしないようにするやつ
-    {
-       $this->middleware('auth');
-    }*/
-
     public function showNewform()//新規登録ページを表示するための処理
     {
-        \Log::info('showNewform通過 ID:' . $id);
+        //\Log::info('showNewform通過 ID:' . $id);
         $model_company = new Company();
         $companies = $model_company->getList(); //メーカー名の選択肢（@foreach）を表示してる
         return view('new',['companies' => $companies]);
@@ -122,7 +118,7 @@ class CompaniesController extends Controller
         \Log::info('showPedit通過 ID:' . $id);
         $product = Product::find($id); //選択した商品のIDを取得してる
         $companies = Company::all();   //メーカー名の選択肢を取得してる
-        return view('pedit', compact('product','companies','id')); //compact()で引数を２つpedit.viewに表示されるようにしてる
+        return view('pedit', compact('product','companies','id')); //compact()で複数の引数をpedit.viewに表示されるようにしてる
     }
 
     public function destroy($id)//削除ボタンの処理
@@ -133,5 +129,18 @@ class CompaniesController extends Controller
         $destroy->delete();
         //削除したら一覧画面にリダイレクト
         return redirect()->route('list');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }
+
+    public function __construct() //未承認のユーザーをブロックするための記述。middlewareとは送信リクエストの処理をするとこ
+    {
+       $this->middleware('auth');
     }
 }

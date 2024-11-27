@@ -15,7 +15,7 @@
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end"></label>
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="パスワード">
+                                <input id="password" type="password" required="required" class="form-control @error('password') is-invalid @enderror" name="password" autofocus placeholder="パスワード">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -28,7 +28,7 @@
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end"></label>
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" autofocus placeholder="メールアドレス">
+                                <input required id="email" type="email" required="required" class="form-control @error('email') is-invalid @enderror" name="email" autofocus placeholder="メールアドレス">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">

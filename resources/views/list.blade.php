@@ -13,10 +13,13 @@
         <link href="{{ asset('css/list_blade.css') }}" rel="stylesheet">
     </head>
     <body>
-      <div class="register">
-        <p><button id="regist" onclick="location.href='http://localhost:80/laravel7/public/register'">ユーザー新規登録</button></p>
-        <p><button id="login" onclick="location.href='http://localhost:80/laravel7/public/login'">ログイン</button></p>
-      </div>
+      <form action="{{route('logout')}}" method="post">
+        @csrf
+        <div class="logout">
+            <p><button type="submit" id="logout" onclick="location.href='http://localhost:80/laravel7/public/login'">ログアウト</button></p>
+        </div>
+      </form>
+
       <div class="box"> 
       <form action="{{route('list')}}" method="get">
             @csrf

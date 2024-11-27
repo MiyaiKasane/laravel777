@@ -43,7 +43,7 @@ class Product extends Model
     private function setData($product,$request, $image_path) //insertData();とdataSave();共通のデータ設定処理
     {
         \Log::info('setData通過');
-        $product = new Product();  //　※idは自動で附番されていくのでinput('id')をする必要はない
+        //$product = new Product();  //　※idは自動で附番されていくのでinput('id')をする必要はない
         $product -> product_name = $request->input("productName");
         $product -> company_id = $request->input("Choice");
         $product -> price = $request->input("Price");
@@ -66,15 +66,11 @@ class Product extends Model
     
     public function dataSave($id, $request, $image_path)//更新する処理
     {
-        //dd('dataSaveのとこ　更新するID: ' . $id);
-
         $product = Product::find($id); //既存のデータから編集したいデータを取得
-        //dd('dataSaveのとこ　更新するID: ' . $id);
-
-        \Log::info('dataSave通過');
+        \Log::info('dataSave通過'. $id);
         if($product){
            $product = $this->setData($product,$request,$image_path);
-           \Log::info('dataSaveメソッドの$productの中身');
+           //\Log::info('dataSaveメソッドの$productの中身');
            $product -> save();
         } else
         {

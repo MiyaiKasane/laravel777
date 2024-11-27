@@ -32,9 +32,10 @@
             @endif
 
             <div class="newTable">
-                <form action="{{route('pedit', $product->id)}}" method="post" enctype='multipart/form-data' class='editForm'>
+                <form action="{{route('pedit_update',$product->id)}}" method="post" enctype='multipart/form-data' class='editForm'>
                     @csrf
                     @method('put')
+                    <input type="hidden" name="id" value="{{$product->id}}">
                     <div class="formSell select_id">
                         <label for="productName" class="thLabel">ID</label>
                         <p class="product_id">{{ $product->id }}</p>
@@ -67,12 +68,13 @@
                             <label for="Image" class="thLabel">商品画像</label>
                             <input id="Image" type="file" name="Image" class="input">
                     </div>
+
+                    <div class="Button">
+                        <button type="submit" class="update">更新</button>
+                        <button type="button" class="back" onclick="location.href='{{ route('pdetail',$product->id) }}'">戻る</button>
+                    </div>
+                    
                 </form>
-                
-                <div class="Button">
-                    <button class="update" onclick="location.href='{{ route('pedit_update', $product->id) }}'">更新</button>
-                    <button class="back" onclick="location.href='{{ route('pdetail', $product->id) }}'">戻る</button>
-                </div>
             </div>
         </div>
     </body>

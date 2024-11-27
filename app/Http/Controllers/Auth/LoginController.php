@@ -21,11 +21,11 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
+     * Where to redirect users after login.　//ログインが成功したらどこに行くか
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/list';
 
     /**
      * Create a new controller instance.
