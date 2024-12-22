@@ -131,13 +131,14 @@ class CompaniesController extends Controller
         return redirect()->route('list');
     }
 
-    public function logout(Request $request)
+    /*public function logout(Request $request)
     {
+        \Log::info('logout通過' . $request);
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/login');
-    }
+    }*/
 
     public function __construct() //未承認のユーザーをブロックするための記述。middlewareとは送信リクエストの処理をするとこ
     {

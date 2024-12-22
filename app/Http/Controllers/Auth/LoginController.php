@@ -27,6 +27,15 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/list';
 
+    public function logout(Request $request)
+    {
+        \Log::info('logout通過' . $request);
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }
+
     /**
      * Create a new controller instance.
      *

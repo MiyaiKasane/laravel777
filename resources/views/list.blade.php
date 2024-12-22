@@ -13,10 +13,10 @@
         <link href="{{ asset('css/list_blade.css') }}" rel="stylesheet">
     </head>
     <body>
-      <form action="{{route('logout')}}" method="post">
+      <form action="{{route('logout')}}" method="get">
         @csrf
         <div class="logout">
-            <p><button type="submit" id="logout" onclick="location.href='http://localhost:80/laravel7/public/login'">ログアウト</button></p>
+            <button type="submit" id="logout">ログアウト</button>
         </div>
       </form>
 

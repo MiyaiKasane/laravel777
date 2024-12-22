@@ -64,7 +64,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary touroku" onclick="location.href='http://localhost:80/laravel7/public/login'">新規登録</button>
+                                <button type="submit" class="btn btn-primary touroku">新規登録</button>
                                 <button type="submit" class="btn btn-primary modoru" onclick="location.href='http://localhost:80/laravel7/public/register'">戻る</button>
                             </div>
                         </div>
