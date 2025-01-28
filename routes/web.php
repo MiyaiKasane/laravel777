@@ -20,7 +20,8 @@ Route::post('/new', [CompaniesController::class, 'registSubmit'])->name('insert_
 Route::get('/pedit/{id}', [CompaniesController::class, 'showPedit'])->name('pedit'); //情報編集の画面表示
 Route::put('/pedit/{id}', [CompaniesController::class, 'updateData'])->name('pedit_update'); //編集→更新用
 Route::delete('/destroy/{id}', [CompaniesController::class, 'destroy'])->name('list_delete');//削除ボタン
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+//Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 
 Auth::routes();//これによってユーザ登録やログインのルーティングが行われている
 

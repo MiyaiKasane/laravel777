@@ -13,7 +13,7 @@
         <link href="{{ asset('css/list_blade.css') }}" rel="stylesheet">
     </head>
     <body>
-      <form action="{{route('logout')}}" method="get">
+      <form action="{{route('logout')}}" method="post">
         @csrf
         <div class="logout">
             <button type="submit" id="logout">ログアウト</button>
@@ -28,7 +28,7 @@
             <div class="search">
                 <input type="search" name="search" class="formCont" placeholder="検索キーワード" value="{{ request('search') }}">
                 <input type="search" name="maker" class="formCont" placeholder="メーカー名" value="{{ request('maker') }}">
-                <input type="submit" name="submit" class="kensaku" value="検索" onclick="location.href='http://localhost:80/laravel7/public/list'">
+                <input type="submit" name="submit" class="kensaku" value="検索" onclick="location.href='{{ route('list') }}'">
             </div>
         </div>
       </form>
@@ -43,7 +43,7 @@
                         <th>価格</th>
                         <th>在庫数</th>
                         <th>メーカー名</th>
-                        <th><button id="new" onclick="location.href='http://localhost:80/laravel7/public/new'">新規登録</button></th>
+                        <th><button id="new" onclick="location.href='{{ route('new') }}'">新規登録</button></th>
                     </tr>
                 </thead>
                 <tbody>

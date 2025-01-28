@@ -55,7 +55,7 @@
                 
                 <div class="Button">
                     <button class="edit" onclick="location.href='{{ route('pedit', $product->id) }}'">編集</button>
-                    <button class="back" onclick="location.href='http://localhost:80/laravel7/public/list'">戻る</button>
+                    <button class="back" onclick="location.href='{{ route('list') }}'">戻る</button>
                 </div>
 
             </div>

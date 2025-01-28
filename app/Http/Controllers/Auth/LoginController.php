@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; //Authクラスを使うための宣言　[Class "App\Http\Controllers\Auth\Auth" not found]の原因？
 
 class LoginController extends Controller
 {
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/list';
+    protected $redirectTo = '/login';
 
     public function logout(Request $request)
     {
