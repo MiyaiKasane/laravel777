@@ -79,7 +79,7 @@ class Product extends Model
     }
     
 
-    public function getKeyword($search,$maker) //検索ワードの取得
+    /*public function getKeyword($search,$maker) //検索ワードの取得
     {
         $query = Self::query();
 
@@ -92,5 +92,5 @@ class Product extends Model
 
         $products = $query->get();
         return $products;
-    }
+    }*/
 }

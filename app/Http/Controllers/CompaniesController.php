@@ -16,19 +16,28 @@ class CompaniesController extends Controller
 {
     public function showList(Request $request) //一覧データ表示するための処理
     {
+        \Log::info('検索1'.$request);
+        $search = $request->input('search');
+        $maker = $request->input('maker');
         $model = new Product();
-        $products = $model->getList();
 
-        function searchBox(Request $request)  //検索用の処理 
+        \Log::info('検索２');
+        if ($search || $maker) {
+            // 検索があれば getKeyword() を使う
+            $products = $model->getKeyword($search, $maker);
+        } else {
+            // 何も検索していない場合、通常の一覧を取得
+            $products = $model->getList();
+        }
+        return view('list', ['products'=> $products]); //一番最後に持ってくる
+    }
+        /*function searchBox(Request $request)  //検索用の処理 
         {   
             $search = $request->input('search');
             $maker = $request->input('maker');
             $model = new Product();
             $products = $model->getKeyword($search,$maker); //productモデルにあるgetKeyword();
-        }
-        return view('list', ['products'=> $products]); //一番最後に持ってくる
-    }
-        
+        }*/
     
     public function registSubmit(PostRequest $request) //データを新しく登録して保存する
     {
@@ -131,14 +140,6 @@ class CompaniesController extends Controller
         return redirect()->route('list');
     }
 
-    /*public function logout(Request $request)
-    {
-        \Log::info('logout通過' . $request);
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/login');
-    }*/
 
     public function __construct() //未承認のユーザーをブロックするための記述。middlewareとは送信リクエストの処理をするとこ
     {

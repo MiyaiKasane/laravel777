@@ -40,10 +40,10 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary" onclick="location.href='http://localhost:80/laravel7/public/list'">
+                                <button type="submit" class="btn btn-primary">
                                     {{ __('ログイン') }}
                                 </button>
-                                <button type="submit" class="btn btn-primary modoru" onclick="location.href='http://localhost:80/laravel7/public/register'">
+                                <button type="submit" class="btn btn-primary modoru" onclick="location.href='{{ route('register') }}'">
                                     {{ __('戻る') }}
                                 </button>
                             </div>

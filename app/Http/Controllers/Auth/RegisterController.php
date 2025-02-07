@@ -51,7 +51,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data) //新規登録時に反応するエラー内容
     {
-        Log::info($data);
+        //Log::info($data);
         //dd($data);
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
@@ -74,6 +74,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        Log::info($data);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
