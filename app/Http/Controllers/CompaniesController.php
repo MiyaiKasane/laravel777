@@ -14,34 +14,28 @@ use Illuminate\Support\Facades\Log; //デバッグ、エラーログ（Log::~）
 
 class CompaniesController extends Controller
 {
-    public function showList(Request $request) //一覧データ表示するための処理
+    public function showList(Request $request) //Requestを受け取り、検索処理するメソッド
     {
-        \Log::info('検索1'.$request);
-        $search = $request->input('search');
-        $maker = $request->input('maker');
-        $model = new Product();
+        log::info('検索処理', ['request' => $request->all()]); //受け取った$requestの中身を確認するためのlog
+        $query = Product::query(); //Productモデルのクエリビルダーを作成
+        $companies = Company::all(); //companyモデルから会社データを取得
+        $companyId = $request->input('company_id'); //requestフォームから送られた該当のidを取得
+        $search = $request->input('search'); //requestフォームから送られた該当のsearchを取得
 
-        \Log::info('検索２');
-        if ($search || $maker) {
-            // 検索があれば getKeyword() を使う
-            $products = $model->getKeyword($search, $maker);
-        } else {
-            // 何も検索していない場合、通常の一覧を取得
-            $products = $model->getList();
+        if ($search) {
+        $query->where('product_name', 'LIKE', "%{$search}%"); //変数searchに値がある場合、product_nameの中で該当する商品を検索する
         }
-        return view('list', ['products'=> $products]); //一番最後に持ってくる
+        if ($companyId) {
+            $query->where('company_id',$companyId); //変数companyIdに値がある場合、company_idの中で該当する商品を検索する
+        }
+            // 何も検索していない場合、通常の一覧を取得。検索結果を$productsに格納する。
+        $products = $query->get();
+
+        return view('list', compact('products','companies')); //一番最後に持ってくる　bladeに$products,$companiesを渡して表示できるようにする
     }
-        /*function searchBox(Request $request)  //検索用の処理 
-        {   
-            $search = $request->input('search');
-            $maker = $request->input('maker');
-            $model = new Product();
-            $products = $model->getKeyword($search,$maker); //productモデルにあるgetKeyword();
-        }*/
     
     public function registSubmit(PostRequest $request) //データを新しく登録して保存する
     {
-        //\Log::info('registSubmit通過');
         /*入力されたデータがバリデーションルールに従ってるかチェックしてる
         ↓これがあればコントローラーでバリデーションルール（required|integer…)とかを書く必要がない。*/
         $validatedData = $request->validated();
@@ -75,8 +69,6 @@ class CompaniesController extends Controller
 
     public function updateData(PostRequest $request,$id)
     {
-        //dd('updateDataのとこ　更新するID: ' . $id);
-        //\Log::info('updateData通過　①');
         $validatedData = $request->validated();
 
         $image_path = null; // 画像が含まれていない場合の処理
@@ -86,7 +78,6 @@ class CompaniesController extends Controller
             $image->storeAs('public/images', $file_name); // public/images フォルダ内に、取得したファイル名で保存
             $image_path = 'storage/images/'. $file_name; // データベース登録用に、ファイルパスを作成
         }
-        //\Log::info('updateDataのバリデーション前通過　更新するID:② ' . $id);
 
 
         DB::beginTransaction();
@@ -94,7 +85,6 @@ class CompaniesController extends Controller
         {
             $model = new Product();
             $model->dataSave($id, $request, $image_path); // 更新メソッドを呼び出し
-            //\Log::info('dataメソッド呼び出し後、商品情報が更新されました。③');
             DB::commit();
             return redirect()->route('pdetail', ['id' => $id])->with('success', '商品情報が更新されました。④');
         } 
@@ -109,7 +99,6 @@ class CompaniesController extends Controller
 
     public function showNewform()//新規登録ページを表示するための処理
     {
-        //\Log::info('showNewform通過 ID:' . $id);
         $model_company = new Company();
         $companies = $model_company->getList(); //メーカー名の選択肢（@foreach）を表示してる
         return view('new',['companies' => $companies]);
@@ -124,7 +113,6 @@ class CompaniesController extends Controller
 
     public function showPedit($id)//商品情報詳細ページを編集するための処理
     {
-        \Log::info('showPedit通過 ID:' . $id);
         $product = Product::find($id); //選択した商品のIDを取得してる
         $companies = Company::all();   //メーカー名の選択肢を取得してる
         return view('pedit', compact('product','companies','id')); //compact()で複数の引数をpedit.viewに表示されるようにしてる

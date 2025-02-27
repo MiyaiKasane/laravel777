@@ -27,11 +27,19 @@ body {
     display: inline-block;
     padding: 5px;
 }
+
 .logout {
+    width: 85px;
     position: relative;
-    top:20px;
-    left:1050px;
+    top: 20px;
+    left: 300px;
+    right:0;
 }
+
+#logout{
+    text-decoration: none;
+}
+
 .search {
     text-align: center;
 }
@@ -75,7 +83,7 @@ table td{
 
 .imgfile {
     width: 50px;
-    height: 50px;
+    height: 70px;
 }
 
 #new{
@@ -98,6 +106,4 @@ button.delete {
 button.delete:hover {
     opacity: 0.7;
 }
-#logout{
-    text-decoration: none;
-}
+

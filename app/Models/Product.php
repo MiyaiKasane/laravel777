@@ -79,18 +79,19 @@ class Product extends Model
     }
     
 
-    /*public function getKeyword($search,$maker) //検索ワードの取得
+    public function getKeyword($search,$maker) //検索ワードの取得
     {
-        $query = Self::query();
+        Log::info($maker);
+        $query = Self::query(); //クエリビルダー作成
 
         if($search){
-           $query->where('product_name','like',"%{$search}%");
+           $query->where('product_name','like',"%{$search}%"); //$searchが含まれるデータをproduct_nameの中から検索
            if($maker){
-              $query->where('company_name','like',"%{$maker}%");
+              $query->where('company_name','like',"%{$maker}%"); //$makerが含まれるデータをcompany_nameの中から検索
            }
         }
 
-        $products = $query->get();
-        return $products;
-    }*/
+        $products = $query->get(); //検索条件に該当した値を取得
+        return $products; //取得した値を返す
+    }
 }
