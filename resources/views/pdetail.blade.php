@@ -28,7 +28,7 @@
                     </tr>
                     <tr class="Pimage">
                         <th>商品画像</th>
-                        <td><img class="imgfile" src="{{ asset($product->img_path) }}" alt="商品画像" style="width: auto; height: 130px;"></td>
+                        <td><img class="imgfile" src="{{ asset($product->img_path) }}" alt="商品画像" style="width: auto; height: 120px;"></td>
                     </tr>
                     <tr>
                         <th>商品名</th>

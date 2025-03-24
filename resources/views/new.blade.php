@@ -31,7 +31,7 @@
             @endif
 
 
-            <form action="{{route('insert_data')}}" method="post" enctype='multipart/form-data' class="newForm">
+            <form action="{{route('insert.data')}}" method="post" enctype='multipart/form-data' class="newForm">
                 @csrf
                 <div>
                         <div class="formSell">

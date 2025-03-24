@@ -17,7 +17,7 @@ class CompaniesController extends Controller
     public function showList(Request $request) //Requestを受け取り、検索処理するメソッド
     {
         log::info('検索処理', ['request' => $request->all()]); //受け取った$requestの中身を確認するためのlog
-        $query = Product::query(); //Productモデルのクエリビルダーを作成
+        $query = Product::query(); //Productモデルのクエリビルダーを作成(データベース上でクエリを実行するための文言)
         $companies = Company::all(); //companyモデルから会社データを取得
         $companyId = $request->input('company_id'); //requestフォームから送られた該当のidを取得
         $search = $request->input('search'); //requestフォームから送られた該当のsearchを取得

@@ -61,7 +61,7 @@
                         <td>{{ $product->company->company_name }}</td>
                         <td>
                             <button class="detail" onclick="location.href='{{ route('pdetail', $product->id) }}'">詳細</button>
-                            <form action="{{ route('list_delete', $product->id) }}" method="POST">
+                            <form action="{{ route('list.delete', $product->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button class="delete" type="submit" onclick='return confirm("削除しますか？")'>削除</button>
