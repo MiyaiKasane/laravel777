@@ -68,9 +68,9 @@
                             <label for="Image" class="thLabel">商品画像</label> 
                             <input id="Image" type="file" name="Image" class="input"><!-- 新しい画像アップロード欄 -->
 
-                            @if (!empty($product->img_path))<!-- 現在の画像アップロード欄 -->
+                            @if (!empty($product->img_path))<!-- !empty→画像が入力されている場合、img_pathのデータを引っ張ってくる -->
                                 <div>
-                                    <p>現在の画像：</p>
+                                    <p>現在の画像：</p><!-- 現在の画像アップロード欄 -->
                                     <img src="{{ asset($product->img_path) }}" alt="商品画像" style="width: auto; height: 85px;">
                                 </div>
                             @endif
