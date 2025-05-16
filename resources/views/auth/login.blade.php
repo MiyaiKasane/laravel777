@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('title', 'ログイン')
 
+@section('styles')
+  <link href="{{ asset('css/login_blade.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-        <meta charset="utf-8">
-        <link rel="dns-prefetch" href="//fonts.gstatic.com"><!--ひつよう？-->
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')   <!--① これがレイアウトファイルを継承する宣言 -->
+@section('title', '商品新規登録画面')
 
-        <title>新規登録</title>
-        <!-- Fonts -->
-        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link href="{{ asset('css/new_blade.css') }}" rel="stylesheet">
-</head>
-    <body>
+@section('styles')
+  <link href="{{ asset('css/new_blade.css') }}" rel="stylesheet">
+@endsection
+
+    @section('content')
         <div class="box">
             <div>
                 <h2>商品新規登録画面</h2>
@@ -68,5 +62,4 @@
                 </div>   
             </form>
         </div> 
-    </body>
-</html>
+    @endsection

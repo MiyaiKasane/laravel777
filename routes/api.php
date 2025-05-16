@@ -1,7 +1,8 @@
 <?php
-
+use App\Http\Controllers\SalesController; //SalesControllerと接続で大丈夫そ？
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompaniesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
+Route::post('/sales', [SalesController::class, 'store'])->name('api.sales.store');
+Route::get('/list', [CompaniesController::class, 'showList']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) 
+{
     return $request->user();
 });

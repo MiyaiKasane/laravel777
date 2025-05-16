@@ -1,0 +1,36 @@
+.card {
+    width: 70%;
+    margin: auto;
+    background-color: gray; 
+}
+
+form {
+    margin: 0 auto;
+    width: 60%;
+    position: relative;
+}
+
+.col-md-6{
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+
+.mb-0 {
+    width: auto;
+    display: inline-block;
+    justify-content: center;
+    align-items: center; 
+}
+
+button.touroku {
+    letter-spacing: 5px;
+    padding: 5px;
+}
+
+button.modoru {
+    letter-spacing: 5px;
+    padding: 5px;
+    border: solid 0.7px;
+    border-radius: 2pt;
+}

@@ -16,11 +16,12 @@ class CompaniesController extends Controller
 {
     public function showList(Request $request) //Requestを受け取り、検索処理するメソッド
     {
-        log::info('検索処理', ['request' => $request->all()]); //受け取った$requestの中身を確認するためのlog
+        //log::info('検索処理', ['request' => $request->all()]); //受け取った$requestの中身を確認するためのlog
+
         $query = Product::query(); //Productモデルのクエリビルダーを作成(データベース上でクエリを実行するための文言)
+        $search = $request->input('search'); //requestフォームから送られた該当のsearchを取得
         $companies = Company::all(); //companyモデルから会社データを取得
         $companyId = $request->input('company_id'); //requestフォームから送られた該当のidを取得
-        $search = $request->input('search'); //requestフォームから送られた該当のsearchを取得
 
         if ($search) {
         $query->where('product_name', 'LIKE', "%{$search}%"); //変数searchに値がある場合、product_nameの中で該当する商品を検索する
@@ -30,6 +31,11 @@ class CompaniesController extends Controller
         }
             // 何も検索していない場合、通常の一覧を取得。検索結果を$productsに格納する。
         $products = $query->get();
+
+        //log::info('非同期検索処理', ['request' => $request->all()]);
+        return response()->json([
+            'products' => $products
+        ]);
 
         return view('list', compact('products','companies')); //一番最後に持ってくる　bladeに$products,$companiesを渡して表示できるようにする
     }
