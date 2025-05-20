@@ -1,6 +1,7 @@
 import './bootstrap'; //一応消さないでおく
 
 $(document).ready(function() {  //ページの読み込みが完了したときに、中の処理を実行する
+    console.log('list.jsが読み込まれました');
     $('#kensaku').on('click',function(e){ //クリックされたときに以下の処理をする
         e.preventDefault(); //ページ遷移するのを防ぐ
 
