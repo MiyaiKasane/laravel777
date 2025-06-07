@@ -1,6 +1,6 @@
 import './bootstrap'; //一応消さないでおく
 
-$(document).ready(function() {  //ページの読み込みが完了したときに、中の処理を実行する
+$(document).on(function() {  //ページの読み込みが完了したときに、中の処理を実行する
     console.log('list.jsが読み込まれました');
     $('#kensaku').on('click',function(e){ //クリックされたときに以下の処理をする
         e.preventDefault(); //ページ遷移するのを防ぐ
@@ -12,16 +12,33 @@ $(document).ready(function() {  //ページの読み込みが完了したとき�
         $.ajax({
             url: '/api/list',
             method: 'GET',
-            data: {
+            data: JSON.stringify({
                 search: search,
                 company_id: companyId
-            },
+            }),
             success: function(response) {   //結果を画面に表示
+                console.log(response)
                 let html = '';
-                response.peoducts.forEach(product => {
-                    html += '<li>${product.product_name}<li>';
+                response.products.forEach(product => {
+                    html +=
+                        `<tr>
+                            <td>${product.id}</td>
+                            <td>${product.product_name}</td>
+                            <td><img class="imgfile" src="/${product.img_path ?? ''}" alt="商品画像"></td>
+                            <td>${product.price}</td>
+                            <td>${product.stock}</td>
+                            <td>${product.company_id}</td>
+                            <td>
+                                <a class="btn btn-info" href="/pdetail/${product.id}">詳細</a>
+                            </td>
+                        </tr>`;
                 });
-                $('#product-list').html(html); //結果をリストに反映
+                $('.TablE tbody').html(html);
+
+                // 検索結果が0件のとき
+                if (response.products.length === 0) {
+                    $('.TablE tbody').html('<tr><td colspan="7" class="text-center">商品が見つかりません</td></tr>');
+                }
             },
             error: function(xhr) {
                 console.error('エラーが発生しました', xhr);

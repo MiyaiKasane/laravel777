@@ -27,7 +27,7 @@
                         <option value="{{ $company->id }}">{{ $company->name }}</option><!--DB内のメーカー名を取得するための記載。company_idの名前でサーバーに送られる-->
                         @endforeach
                 </select>
-                <input type="submit" class="kensaku" id="kensaku" value="検索">
+                <button id="kensaku" name="kensaku">検索</button>
             </div>
         </div>
       </form>

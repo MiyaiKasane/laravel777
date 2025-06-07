@@ -34,10 +34,11 @@ class CompaniesController extends Controller
 
         //log::info('非同期検索処理', ['request' => $request->all()]);
         return response()->json([
-            'products' => $products
+            'products' => $products,
+            'companies' => $companies
         ]);
 
-        return view('list', compact('products','companies')); //一番最後に持ってくる　bladeに$products,$companiesを渡して表示できるようにする
+        //return view('list', compact('products','companies')); //一番最後に持ってくる　bladeに$products,$companiesを渡して表示できるようにする
     }
     
     public function registSubmit(PostRequest $request) //データを新しく登録して保存する
