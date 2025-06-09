@@ -17,7 +17,7 @@ use App\Http\Controllers\CompaniesController;
 
 
 Route::post('/sales', [SalesController::class, 'store'])->name('api.sales.store');
-Route::get('/list', [CompaniesController::class, 'showList']);
+Route::get('/api/list/{$request}', [CompaniesController::class, 'showList']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) 
 {
     return $request->user();

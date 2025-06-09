@@ -12,10 +12,11 @@ $(document).on(function() {  //ページの読み込みが完了したときに�
         $.ajax({
             url: '/api/list',
             method: 'GET',
-            data: JSON.stringify({
+            data: {
                 search: search,
                 company_id: companyId
-            }),
+            },
+            dataType: 'json',
             success: function(response) {   //結果を画面に表示
                 console.log(response)
                 let html = '';
