@@ -6,16 +6,15 @@
   <link href="{{ asset('css/list_blade.css') }}" rel="stylesheet">
 @endsection
 
-<script src="{{ asset('js/list.js') }}"></script>
-    @section('content')
-      <form action="{{route('logout')}}" method="post">
+@section('content')
+    <form action="{{route('logout')}}" method="post">
         @csrf
         <div class="logout">
             <button type="submit" id="logout">ログアウト</button>
         </div>
-      </form>
+    </form>
 
-      <div class="box"> 
+    <div class="box"> 
       <form id="searchForm" action="{{ route('list') }}" method="get"><!--method="get"のときはcsrfいらない-->
         <div>
             <h2>商品一覧画面</h2>
@@ -24,7 +23,7 @@
                 <select name="company_id" id="company_id" class="input" placeholder="メーカー名"><!--メーカー名の検索-->
                         <option value="">メーカー名を選択</option><!--初期値用の空行-->
                         @foreach($companies as $company)<!--companies配列の中のすべての値をループで表示-->
-                        <option value="{{ $company->id }}">{{ $company->name }}</option><!--DB内のメーカー名を取得するための記載。company_idの名前でサーバーに送られる-->
+                            <option value="{{ $company->id }}">{{ $company->company_name }}</option><!--DB内のメーカー名を取得するための記載。company_idの名前でサーバーに送られる-->
                         @endforeach
                 </select>
                 <button id="kensaku" name="kensaku">検索</button>
@@ -67,5 +66,6 @@
                 </tbody>
             </table>
         </div>
-      </div>
-    @endsection               <!-- ③ 最後にセクションを閉じる -->
+    </div>
+    <script src="{{ asset('js/list.js') }}"></script>
+@endsection           <!-- ③ 最後にセクションを閉じる -->

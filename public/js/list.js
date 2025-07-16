@@ -1,20 +1,21 @@
-import './bootstrap'; //一応消さないでおく
+//import './bootstrap'; //一応消さないでおく
 
-$(document).on(function() {  //ページの読み込みが完了したときに、中の処理を実行する
+$(function() {  //ページの読み込みが完了したときに、中の処理を実行する
     console.log('list.jsが読み込まれました');
     $('#kensaku').on('click',function(e){ //クリックされたときに以下の処理をする
         e.preventDefault(); //ページ遷移するのを防ぐ
+        $('.loading').addClass('display-none'); //通信中のぐるぐるを消す
 
         //入力された検索条件を取得へ
         const search = $('#search').val();  //検索キーワード
-        const companyId = $('#company_id').val();
-
+        const company_Id = $('#company_id').val();
+        
         $.ajax({
-            url: '/api/list',
+            url: '/list', 
             method: 'GET',
             data: {
                 search: search,
-                company_id: companyId
+                company_id: company_Id
             },
             dataType: 'json',
             success: function(response) {   //結果を画面に表示

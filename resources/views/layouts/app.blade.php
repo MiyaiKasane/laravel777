@@ -18,16 +18,16 @@
     <!-- ページ専用CSS -->
     @yield('styles')
 
-    <!-- jQueryなど共通スクリプト -->
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-    <!-- ページ専用スクリプト -->
-    @yield('scripts')
 </head>
+
 <body>
     <div id="app">
         <main class="py-4">
             @yield('content')
+            @yield('scripts')
         </main>
     </div>
 </body>

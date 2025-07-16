@@ -13,8 +13,9 @@ use App\Http\Controllers\CompaniesController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/Route::get('/list', [CompaniesController::class, 'showList'])->name('list'); //商品一覧画面の表示
-Route::get('/', [CompaniesController::class, 'showList'])->name('search');//検索用
+*/
+Route::get('/list', [CompaniesController::class, 'showList'])->name('list'); //商品一覧画面の表示
+//Route::get('/list', [CompaniesController::class, 'showList'])->name('search');//検索用
 Route::get('/pdetail/{id}', [CompaniesController::class, 'showPdetail'])->name('pdetail'); //詳細情報の画面表示
 Route::get('/new', [CompaniesController::class, 'showNewform'])->name('new'); //新規登録画面の表示
 Route::post('/new', [CompaniesController::class, 'registSubmit'])->name('insert.data'); //新規データの登録

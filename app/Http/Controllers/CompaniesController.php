@@ -20,6 +20,7 @@ class CompaniesController extends Controller
         $search = $request->input('search'); //requestフォームから送られた該当のsearchを取得
         $companies = Company::all(); //companyモデルから会社データを取得
         $companyId = $request->input('company_id'); //requestフォームから送られた該当のidを取得
+        log::info('データ受け取った', ['request' => $request->all()]);
 
         if ($search) {
         $query->where('product_name', 'LIKE', "%{$search}%"); //変数searchに値がある場合、product_nameの中で該当する商品を検索する
@@ -31,12 +32,19 @@ class CompaniesController extends Controller
         $products = $query->get();
 
         log::info('非同期検索処理', ['request' => $request->all()]);
-        return response()->json([
-            'products' => $products,
-            'companies' => $companies
-        ]);
-
-        //return view('list', compact('products','companies')); //一番最後に持ってくる　bladeに$products,$companiesを渡して表示できるようにする
+        if($request->ajax()){
+        log::info('ajaxの場合Jsonで返す', ['request' => $request->all()]);
+        //ajaxリクエストの場合、JSON形式でデータを返す
+            return response()->json([
+                'products' => $products,
+                'companies' => $companies
+            ]);
+        }
+        else{
+            log::info('ajaxでない場合通常のviewで返す', ['request' => $request->all()]);
+            //ajaxリクエストでない場合、通常のビューを返す
+            return view('list', compact('products', 'companies')); //compact()で複数の引数をlist.viewに表示されるようにしてる
+        }
     }
     
     public function registSubmit(PostRequest $request) //データを新しく登録して保存する
