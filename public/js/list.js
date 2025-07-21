@@ -8,14 +8,14 @@ $(function() {  //ページの読み込みが完了したときに、中の処�
 
         //入力された検索条件を取得へ
         const search = $('#search').val();  //検索キーワード
-        const company_Id = $('#company_id').val();
+        const company_id = $('#company_id').val();
         
         $.ajax({
             url: '/list', 
             method: 'GET',
             data: {
                 search: search,
-                company_id: company_Id
+                company_id: company_id
             },
             dataType: 'json',
             success: function(response) {   //結果を画面に表示

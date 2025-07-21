@@ -25,8 +25,8 @@ class CompaniesController extends Controller
         if ($search) {
         $query->where('product_name', 'LIKE', "%{$search}%"); //変数searchに値がある場合、product_nameの中で該当する商品を検索する
         }
-        if ($companyId) {
-            $query->where('company_id',$companyId); //変数companyIdに値がある場合、company_idの中で該当する商品を検索する
+        if ($company_id) {
+            $query->where('company_id',$company_id); //変数companyIdに値がある場合、company_idの中で該当する商品を検索する
         }
             // 何も検索していない場合、通常の一覧を取得。検索結果を$productsに格納する。
         $products = $query->get();
