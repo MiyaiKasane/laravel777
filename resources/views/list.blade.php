@@ -58,7 +58,7 @@
                             <form action="{{ route('list.delete', $product->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="delete" type="submit" onclick='return confirm("削除しますか？")'>削除</button>
+                                <button class="delete" type="submit" data-id="{{ $product->id }}" onclick='return confirm("削除しますか？")'>削除</button>
                             </form>
                         </td>
                     </tr>

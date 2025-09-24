@@ -12,9 +12,12 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <!-- Bootstrap CSS CDNを追加 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- 共通CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    
     <!-- ページ専用CSS -->
     @yield('styles')
 

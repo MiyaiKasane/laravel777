@@ -17,9 +17,9 @@ class CompaniesController extends Controller
     public function showList(Request $request) //Requestを受け取り、検索処理するメソッド
     {
         $query = Product::query(); //Productモデルのクエリビルダーを作成(データベース上でクエリを実行するための文言)
-        $search = $request->input('search'); //requestフォームから送られた該当のsearchを取得
         $companies = Company::all(); //companyモデルから会社データを取得
-        $companyId = $request->input('company_id'); //requestフォームから送られた該当のidを取得
+        $search = $request->input('search'); //requestフォームから送られた該当のsearchを取得
+        $company_id = $request->input('company_id'); //requestフォームから送られた該当のidを取得
         log::info('データ受け取った', ['request' => $request->all()]);
 
         if ($search) {
@@ -131,13 +131,18 @@ class CompaniesController extends Controller
         return view('pedit', compact('product','companies','id')); //compact()で複数の引数をpedit.viewに表示されるようにしてる
     }
 
-    public function destroy($id)//削除ボタンの処理
+    public function destroy($id)//削除ボタンの処理　Ajax対応にした
     {
         //テーブルから指定のIDのレコード1件を取得
         $destroy = Product::find($id); //選択した商品のIDを取得してる
-        //レコードを削除
-        $destroy->delete();
-        //削除したら一覧画面にリダイレクト
+        \Log::info('destroy通過 ID:' . $id);
+        if ($destroy){
+            $destroy->delete(); //レコードを削除
+            if(request()->ajax()) {
+                \Log::info('Controllerのajax destroy通過 ID:' . $id);
+                return response()->json(['success' => true]); //削除したら一覧画面にリダイレクト
+            }
+        }
         return redirect()->route('list');
     }
 
