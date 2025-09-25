@@ -21,7 +21,7 @@ function searchProducts() {  //★1: searchProductsの開始
 
             success: function(response) {   // ★4: Ajax成功時
                 let html = '';
-                response.products.forEach(product => {
+                response.products.forEach(product => { //なんか会社名の表示がうまくいかない
                     html +=
                         `<tr>
                             <td>${product.id}</td>
