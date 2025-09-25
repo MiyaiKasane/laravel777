@@ -138,9 +138,9 @@ class CompaniesController extends Controller
         \Log::info('destroy通過 ID:' . $id);
         if ($destroy){
             $destroy->delete(); //レコードを削除
-            if(request()->ajax()) {
+            if(request()->ajax()) { //ここでAjaxだったらjsファイル、そうでなければコントローラーの削除処理で対応？
                 \Log::info('Controllerのajax destroy通過 ID:' . $id);
-                return response()->json(['success' => true]); //削除したら一覧画面にリダイレクト
+                return response()->json(['success' => true]); //削除したら一覧画面にリダイレクト　したいけどうまくいってない
             }
         }
         return redirect()->route('list');

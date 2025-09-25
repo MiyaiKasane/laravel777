@@ -52,7 +52,7 @@
                         <td><img class="imgfile" src="{{ asset($product->img_path) }}" alt="商品画像"></td>
                         <td>{{ $product->price }}</td>
                         <td>{{ $product->stock }}</td>
-                        <td>{{ $product->company->company_name }}</td>
+                        <td>{{ $product->company->company_name }}</td> <!--なんか検索後の会社名の表示がうまくいかない-->
                         <td>
                             <button class="detail" onclick="location.href='{{ route('pdetail', $product->id) }}'">詳細</button>
                             <form action="{{ route('list.delete', $product->id) }}" method="POST">
