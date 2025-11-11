@@ -12,11 +12,24 @@ function searchProducts() {  //★1: searchProductsの開始
         console.log('検索キーワード:', search);
         const company_id = $('#company_id').val();
         console.log('検索キーワード:', company_id);
+        const max_price = $('#max_price').val();  //上限価格で検索
+        const min_price = $('#min_price').val();  //下限価格で検索
+        const max_stock = $('#max_stock').val();  //上限在庫で検索
+        const min_stock = $('#min_stock').val();  //下限在庫で検索
+
+
 
         $.ajax({ // ★3: Ajax検索の処理
             url: 'list', 
             method: 'GET',
-            data: { search: search, company_id: company_id },
+            data: { 
+                search: search, 
+                company_id: company_id,
+                max_price: max_price,
+                min_price: min_price,
+                max_stock: max_stock,
+                min_stock: min_stock
+            },
             dataType: 'json',
 
             success: function(response) {   // ★4: Ajax成功時
@@ -32,7 +45,7 @@ function searchProducts() {  //★1: searchProductsの開始
                             <td>${product.company ? product.company.company_name: ''}</td>
                             <td>
                                 <a class="detail btn-info" href="pdetail/${product.id}">詳細</a>
-                                <button class="delete" data-id="destroy/${product.id}">削除</button>
+                                <button class="delete" data-id="${product.id}">削除</button>
                             </td>
                         </tr>`;
                 });
@@ -59,18 +72,20 @@ function searchProducts() {  //★1: searchProductsの開始
             
             if (!confirm('削除しますか？')) return;
             $.ajax({  //ajax:削除の処理
-                    url: '/laravel7/public/destroy' + id,// 必要に応じてパス修正,
+                    url: 'destroy/' + id,// 必要に応じてパス修正,
                     type: 'DELETE',
-                    data: {
-                        _method: 'DELETE',
-                        _token: $('meta[name="csrf-token"]').attr('content')
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function() {// 再検索や行の削除など
                         alert('削除しました');
+                        // 削除した行をテーブルから削除
+                        $('button.delete[data-id="' + id + '"]').closest('tr').remove();
                     },
 
                     error: function(xhr) {
                         alert('削除に失敗しました');
+                        console.error('削除エラー:', xhr);
                     }
             }); //ajax:削除の終わり
     }); // ★5の終わり

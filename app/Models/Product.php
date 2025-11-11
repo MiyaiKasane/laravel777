@@ -20,7 +20,6 @@ class Product extends Model
     {
         $product = Self::all(); //この記述はクエリビルダだけどuse宣言してなかったとしても併用できる。
         return $product;
-
     }
 
     public function company ()  //companyテーブルへのリレーション　1対多
@@ -50,6 +49,9 @@ class Product extends Model
         $product -> stock = $request->input("Stock");
         $product -> comment = $request->input("Comment");
         $product -> img_path = $image_path;
+        $keyword = $request->input('keyword');
+        $search = $request->input('search');
+
         return $product; //ここでreturnしないと「Call to a member function save() on null」のエラーが出る
     }
     
@@ -86,12 +88,39 @@ class Product extends Model
 
         if($search){
            $query->where('product_name','like',"%{$search}%"); //$searchが含まれるデータをproduct_nameの中から検索
-           if($maker){
-              $query->where('company_name','like',"%{$maker}%"); //$makerが含まれるデータをcompany_nameの中から検索
-           }
+        if($maker){
+            $query->where('company_name','like',"%{$maker}%"); //$makerが含まれるデータをcompany_nameの中から検索
+        }
+        if ($min_price) {
+            $query->where('price','>=',$min_price); //価格範囲で検索
+        }
+        if ($max_price) {
+            $query->where('price','<=',$max_price); 
+        }
+        if ($min_stock) {
+            $query->where('stock','>=',$min_stock); //在庫範囲で検索
+        }
+        if ($max_stock) {
+            $query->where('stock','<=',$max_stock); 
+        }
+
         }
 
         $products = $query->get(); //検索条件に該当した値を取得
         return $products; //取得した値を返す
     }
+
+    public function scopePrice($query,$min = null, $max = null) //価格での検索
+    {
+        if(!is_null($min_price))$query->where('min_price', '>=', $min_price);
+        if(!is_null($max_price))$query->where('max_price', '<=', $max_price);
+        return $query;
+    }
+
+    public function scopeStock($query,$min = null, $max = null) //在庫数での検索
+    {
+        if(!is_null($min_stock))$query->where('min_stock', '>=', $min_stock);
+        if(!is_null($max_stock))$query->where('max_stock', '<=', $max_stock);
+        return $query;
+    }                              
 }

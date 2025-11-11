@@ -27,6 +27,32 @@
                         @endforeach
                 </select>
                 <button id="kensaku" name="kensaku">検索</button>
+
+                <div class="priceSearch">
+                    <label for="price" class="priceLabel">{{ __('価格') }}</label>
+                    <div class="max">
+                        <p>{{ __('上限') }}</p>
+                        <input type="number" name="max_price" id="max_price" >
+                    </div>
+
+                    <div class="min">
+                        <p>{{ __('下限') }}</p>
+                        <input type="number" name="min_price" id="min_price" >
+                    </div>
+                </div>
+
+                <div class="stockSearch">
+                    <label for="stock" class="stockLabel">{{ __('在庫数') }}</label>
+                    <div class="max">
+                        <p>{{ __('上限') }}</p>
+                        <input type="number" name="max_stock" id="max_stock" >
+                    </div>
+
+                    <div class="min">
+                        <p>{{ __('下限') }}</p>
+                        <input type="number" name="min_stock" id="min_stock" >
+                    </div>
+                </div>
             </div>
         </div>
       </form>

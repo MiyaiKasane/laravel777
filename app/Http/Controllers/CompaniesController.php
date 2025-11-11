@@ -20,30 +20,50 @@ class CompaniesController extends Controller
         $companies = Company::all(); //companyモデルから会社データを取得
         $search = $request->input('search'); //requestフォームから送られた該当のsearchを取得
         $company_id = $request->input('company_id'); //requestフォームから送られた該当のidを取得
-        log::info('データ受け取った', ['request' => $request->all()]);
+        $max_price = $request->input('max_price');
+        $min_price = $request->input('min_price');
+        $max_stock = $request->input('max_stock');
+        $min_stock = $request->input('min_stock');
+        \Log::info('データ受け取った', ['request' => $request->all()]);
 
         if ($search) {
-        $query->where('product_name', 'LIKE', "%{$search}%"); //変数searchに値がある場合、product_nameの中で該当する商品を検索する
+            $query->where('product_name', 'LIKE', "%{$search}%"); //変数searchに値がある場合、product_nameの中で該当する商品を検索する
         }
         if ($company_id) {
             $query->where('company_id',$company_id); //変数companyIdに値がある場合、company_idの中で該当する商品を検索する
         }
+        if (!is_null($min_price) && $min_price !== '') {
+            $query->where('price','>=',(int)$min_price); //価格範囲で検索
+        }
+        if (!is_null($max_price) && $max_price !== '') {
+            $query->where('price','<=',(int)$max_price); 
+        }
+        if (!is_null($min_stock) && $min_stock !== '') {
+            $query->where('stock','>=',(int)$min_stock); //在庫範囲で検索
+        }
+        if (!is_null($max_stock) && $max_stock !== '') {
+            $query->where('stock','<=',(int)$max_stock); 
+        }
             // 何も検索していない場合、通常の一覧を取得。検索結果を$productsに格納する。
         $products = $query->get();
 
-        log::info('非同期検索処理', ['request' => $request->all()]);
+        \Log::info('非同期検索処理', ['request' => $request->all()]);
         if($request->ajax()){
-        log::info('ajaxの場合Jsonで返す', ['request' => $request->all()]);
+        \Log::info('ajaxの場合Jsonで返す', ['request' => $request->all()]);
         //ajaxリクエストの場合、JSON形式でデータを返す
+        
             return response()->json([
                 'products' => $products,
                 'companies' => $companies
             ]);
         }
         else{
-            log::info('ajaxでない場合通常のviewで返す', ['request' => $request->all()]);
+            \Log::info('ajaxでない場合通常のviewで返す', ['request' => $request->all()]);
             //ajaxリクエストでない場合、通常のビューを返す
-            return view('list', compact('products', 'companies')); //compact()で複数の引数をlist.viewに表示されるようにしてる
+
+            return view('list', compact('products', 'companies')); 
+            //compact()で複数の引数をlist.viewに表示されるようにしてる。
+            //$productsの中に既に各商品の価格（price）と在庫数（stock）の情報が含まれているため、priceやstockは個別に渡してない。
         }
     }
     
