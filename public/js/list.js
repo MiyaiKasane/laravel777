@@ -74,18 +74,16 @@ function searchProducts() {  //★1: searchProductsの開始
             $.ajax({  //ajax:削除の処理
                     url: 'destroy/' + id,// 必要に応じてパス修正,
                     type: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    data: {
+                        _method: 'DELETE',
+                        _token: $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function() {// 再検索や行の削除など
                         alert('削除しました');
-                        // 削除した行をテーブルから削除
-                        $('button.delete[data-id="' + id + '"]').closest('tr').remove();
                     },
 
                     error: function(xhr) {
                         alert('削除に失敗しました');
-                        console.error('削除エラー:', xhr);
                     }
             }); //ajax:削除の終わり
     }); // ★5の終わり
