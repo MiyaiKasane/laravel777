@@ -9,15 +9,12 @@ function searchProducts() {  //★1: searchProductsの開始
 
         //入力された検索条件を取得へ
         const search = $('#search').val();  //検索キーワード
-        console.log('検索キーワード:', search);
         const company_id = $('#company_id').val();
-        console.log('検索キーワード:', company_id);
         const max_price = $('#max_price').val();  //上限価格で検索
         const min_price = $('#min_price').val();  //下限価格で検索
         const max_stock = $('#max_stock').val();  //上限在庫で検索
         const min_stock = $('#min_stock').val();  //下限在庫で検索
-
-
+        console.log('検索条件:', search, company_id, max_price, min_price, max_stock, min_stock);
 
         $.ajax({ // ★3: Ajax検索の処理
             url: 'list', 
@@ -54,6 +51,14 @@ function searchProducts() {  //★1: searchProductsの開始
                 // 検索結果が0件のとき
                 if (response.products.length === 0) {
                     $('.TablE tbody').html('<tr><td colspan="7" class="text-center">商品が見つかりません</td></tr>');
+                }
+
+                //tablesorterに一覧の内容が変更したことをしらせる
+                const $table = $('#thsorter'); //「id=thsorter」のデータを$tableとして定義する
+                console.log( $table.data('tablesorter') );
+                if($table.data('tablesorter')){ //tablesorterの中身にあるデータを確認してる
+                    $table.trigger("update"); //これがないと検索後のソートがうまくいかなくなる。（検索前後のデータがどちらも表示されてしまう）
+                    $table.trigger('sorton', [[[0,1]]]); //「ID列を降順で並べ直して」と指示している
                 }
             }, // ★4の終わり
 

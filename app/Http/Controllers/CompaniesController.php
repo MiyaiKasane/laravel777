@@ -45,9 +45,9 @@ class CompaniesController extends Controller
             $query->where('stock','<=',(int)$max_stock); 
         }
             // 何も検索していない場合、通常の一覧を取得。検索結果を$productsに格納する。
-        $products = $query->get();
+            //orderBy('id', 'desc')でidの降順に並び替え
+        $products = $query->orderBy('id', 'desc')->get();
 
-        \Log::info('非同期検索処理', ['request' => $request->all()]);
         if($request->ajax()){
         \Log::info('ajaxの場合Jsonで返す', ['request' => $request->all()]);
         //ajaxリクエストの場合、JSON形式でデータを返す

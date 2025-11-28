@@ -3,7 +3,8 @@
 @section('title', '商品一覧画面')
 
 @section('styles')
-  <link href="{{ asset('css/list_blade.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.default.min.css">
+    <link href="{{ asset('css/list_blade.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -58,7 +59,7 @@
       </form>
       
         <div class="TablE">
-            <table>
+            <table id="thsorter" class="tablesorter">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -93,5 +94,19 @@
             </table>
         </div>
     </div>
-    <script src="{{ asset('js/list.js') }}"></script>
+    @section('scripts')           <!-- ② セクションの開始 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script> <!--tablesorterの読み込み-->
+    <script src="{{ asset('js/list.js') }}"></script> <!--list.jsファイルを読み込む-->
+    <script> //以下、tablesorterの設定
+        $(function() {
+            $('#thsorter').tablesorter({
+                headers:{
+                //2:{sorter: false}  // 7列目（インデックス6）をソート対象外に設定
+                6:{sorter: false}  // 7列目（インデックス6）をソート対象外に設定
+                }
+            })
+        });
+    </script>
+    @endsection
+
 @endsection           <!-- ③ 最後にセクションを閉じる -->

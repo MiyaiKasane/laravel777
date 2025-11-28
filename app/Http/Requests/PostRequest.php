@@ -26,8 +26,8 @@ class PostRequest extends FormRequest
         return [
             'productName' => 'required|max:100',
             'Image' => 'nullable|image|max:500',
-            'Price' => 'required|integer|max:250',
-            'Stock' => 'required|integer|max:250',
+            'Price' => 'required|integer|max:500',
+            'Stock' => 'required|integer|max:500',
             'Choice' => 'required|max:100',
             'Comment' => 'nullable|string' //仕様書ではtextの指定だけど、text自体がルールとして対応してない・・・？
         ];
