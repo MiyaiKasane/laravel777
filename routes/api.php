@@ -15,9 +15,10 @@ use App\Http\Controllers\CompaniesController;
 |
 */
 
+Route::get('/list', [CompaniesController::class, 'showList'])->name('list'); //GETを先に記述しておく
+//POSTを先に書くと「The GET method is not supported for route api/store. Supported methods: POST.」のエラーが出る。
 
-Route::post('/sales', [SalesController::class, 'store'])->name('api.sales.store');
-Route::get('/list', [CompaniesController::class, 'showList'])->name('list');
+Route::post('/store', [SalesController::class, 'store'])->name('api.store');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) 
 {
     return $request->user();

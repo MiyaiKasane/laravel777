@@ -110,6 +110,15 @@ button.delete {
 button.delete:hover {
     opacity: 0.7;
 }
+button.store {
+    background-color: rgb(254, 100, 100);
+    color:white;
+    border-width: 1px;
+    border-radius: 3px;
+}
+button.store:hover {
+    opacity: 0.7;
+}
 .max{
     display: inline-block;
 }

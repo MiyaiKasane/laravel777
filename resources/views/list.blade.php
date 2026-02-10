@@ -82,6 +82,17 @@
                         <td>{{ $product->company->company_name }}</td> <!--なんか検索後の会社名の表示がうまくいかない-->
                         <td>
                             <button class="detail" onclick="location.href='{{ route('pdetail', $product->id) }}'">詳細</button>
+                            
+                            <form action="{{ route('store')}}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <!--<input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="name" value="{{ Auth::user()->name ?? 'webuser' }}">
+                                <input type="hidden" name="quantity" value="1">　-->
+                                <button class="store" type="submit" onclick='return confirm("購入しますか？")'>購入</button>
+                            </form>
+
+
                             <form action="{{ route('list.delete', $product->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')

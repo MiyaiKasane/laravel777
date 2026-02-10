@@ -29,7 +29,7 @@ class Product extends Model
 
     public function sale ()     //saleテーブルへのリレーション　１対多
     {
-        return $this->belongsTo(Sale::class,'App\Models\Sale');
+        return $this->hasMany(Sale::class,'App\Models\Sale');
     }
 
     public function getList() 
@@ -39,7 +39,7 @@ class Product extends Model
     }
 
 
-    private function setData($product,$request, $image_path) //insertData();とdataSave();共通のデータ設定処理
+    private function setData($product,$request,$image_path) //insertData();とdataSave();共通のデータ設定処理
     {
         \Log::info('setData通過');
         //$product = new Product();  //　※idは自動で附番されていくのでinput('id')をする必要はない
@@ -103,7 +103,6 @@ class Product extends Model
         if ($max_stock) {
             $query->where('stock','<=',$max_stock); 
         }
-
         }
 
         $products = $query->get(); //検索条件に該当した値を取得
@@ -122,5 +121,31 @@ class Product extends Model
         if(!is_null($min_stock))$query->where('min_stock', '>=', $min_stock);
         if(!is_null($max_stock))$query->where('max_stock', '<=', $max_stock);
         return $query;
-    }                              
+    }
+
+    //============↑これより上の内容がいるかどうか===============
+
+    // リクエストから必要なデータを取得する
+    public function getProduct($productId) //Salesコントローラー:22行目に呼び出されるやつ
+    {
+        Log::info('getProductLog', ['product_id' => $productId]);
+        return $this->where('id', $productId)->first();
+        //↑　first()は最初の1件だけ取得するメソッド　複数データがとれる状態で1件だけほしいときに使ったりする。※get();でもいい。
+    }
+
+        public function decStock ($productId) //在庫を減少させる処理
+    {
+        $purchase = DB::table('products')
+        ->where('id', $productId)
+        //where('カラム名', '値') どのような条件で絞り込むか指定
+
+        /*->join('sales', 'products.id', '=', 'sales.product_id')
+        join('テーブル名', '結合するテーブル名.カラム', '=', '結合先のテーブル名.カラム')
+        ↑でproductsテーブルとsalesテーブルのカラムを結合させることができる*/
+
+        ->decrement('stock', 1);
+        //decrement('カラム名', 数値) 指定したカラムの数値を減少させる
+        return $purchase;
+    }
+
 }
