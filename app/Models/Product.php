@@ -126,13 +126,13 @@ class Product extends Model
     //============↑これより上の内容がいるかどうか===============
 
     // リクエストから必要なデータを取得する
-    public function getProduct($productId) //Salesコントローラー:22行目に呼び出されるやつ
+    public function getProduct($productId) //Salesコントローラー:36行目に呼び出されるやつ
     {
         Log::info('getProductLog', ['product_id' => $productId]);
         return $this->where('id', $productId)->first();
         //↑　first()は最初の1件だけ取得するメソッド　複数データがとれる状態で1件だけほしいときに使ったりする。※get();でもいい。
     }
-
+    
         public function decStock ($productId) //在庫を減少させる処理
     {
         $purchase = DB::table('products')

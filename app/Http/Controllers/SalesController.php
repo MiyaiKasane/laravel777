@@ -20,18 +20,18 @@ class SalesController extends Controller{ //モデルがすぐ使えるように
     // 1. バリデーション（ここで product_id が必須なことを保証）
     $validated = $request->validate([
         'product_id' => 'required|integer',
-        'name'       => 'required|string',
         'quantity'   => 'nullable|integer|min:1',
     ]);
 
+    //ここでバリデーションを通過できたデータを変数に入れてる
     $productId = $validated['product_id'];
     $quantity  = $validated['quantity'] ?? 1;
 
     Log::info('store request all()2', $request->all());
 
-    // リクエストから必要なデータを取得する
+    /* リクエストから必要なデータを取得する ↓でもデータの取得はできるが、上のバリデーションで必須項目を保証しているので、ここでは$validatedから直接値を取得するほうが安全でコードもすっきりする。
     $productId = $request->input('product_id'); // "product_id":7が送られた場合は7が代入される
-    $quantity = $request->input('quantity', 1); // 購入する数を代入する もしも”quantity”というデータが送られていない場合は1を代入する
+    $quantity = $request->input('quantity', 1); // 購入する数を代入する もしも”quantity”というデータが送られていない場合は1を代入する */
 
     // データベースから対象の商品を検索・取得
     $product = $this->product_model->getProduct($productId); //Productモデル:129行目を呼んでるやつ
@@ -45,13 +45,12 @@ class SalesController extends Controller{ //モデルがすぐ使えるように
     }
 
     // 在庫を減少させる
-    $this->product_model->decStock($productId); //Productモデル:135行目を呼んでるやつ
+    $this->product_model->decStock($productId); //Productモデル:136行目を呼んでるやつ
     
     // Salesテーブルに購入情報を記録する
-    $this->sale_model->getSale($productId); //Saleモデル:16行目を呼んでるやつ
+    $this->sale_model->createSale($productId); //Saleモデル:19行目を呼んでるやつ
 
-
-    /* return redirect()
+    /*return redirect()
     ->back()
     ->with('success', '購入が完了しました'); */
 
@@ -60,7 +59,17 @@ class SalesController extends Controller{ //モデルがすぐ使えるように
         'message' => '購入成功',
         'product_id' => $productId,
         'quantity' => $quantity,
+        'stock_after' => $product->stock - $quantity 
     ],200);
+
+    // デバッグ用ログ出力
+    /*Log::info('SalesController@store hit', ['data' => $request->all()]);
+
+    return response()->json([
+        'ok'   => true,
+        'from' => 'SalesController@store',
+        'data' => $request->all(),
+    ], 200);*/
 }
 }
 

@@ -16,12 +16,15 @@ class Sale extends Model //SalesControllerかCompanyControllerからのリクエ
     protected $table = 'sales';//テーブルの紐づけ
 
     // Salesテーブルに商品IDと購入日時を記録する　Saleモデルに書く（Saleテーブルに対する動作だから）
-    public function getSale($productId) //Salesコントローラー:23行目に呼び出されるやつ
+    public function createSale($productId) //Salesコントローラー:50行目に呼び出されるやつ
     {
         DB::table('sales')->insert([
             'product_id' => $productId,     //主キーであるIDと、created_at , updated_atは自動入力されるため不要
+            //'quantity'   => 1,
+            /*↑今回は1個ずつしか購入できない仕様なのでquantityは1で固定しているけど
+            そもそもquantityをここに書いてもDBのほうで対応するカラムがないからエラーになる*/
         ]);
-        Log::info('getSaleLog', ['product_id' => $productId]);
+        Log::info('createSaleLog', ['product_id' => $productId]);
 
     }
 
