@@ -85,7 +85,7 @@
                             
                             <!--<form action="{{ route('api.store')}}" method="POST"> webからでも減算処理したいときの記述。web.phpには対応するルートを記述しておくこと
                                 @csrf
-                                @method('POST')　ああああああああ
+                                @method('POST')
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="name" value="{{ Auth::user()->name ?? 'webuser' }}">
                                 <input type="hidden" name="quantity" value="1">

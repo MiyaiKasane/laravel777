@@ -15,7 +15,7 @@ class Company extends Model
 
     public function products ()
 {
-    return $this->hasMany(Product::class,'company_id','id');
+    return $this->hasMany(Product::class,'company_id','id');  //companyテーブルへのリレーション　1(company)対多(product) 一つの会社に対して複数の製品がある
 }
 
 public function getList()   //

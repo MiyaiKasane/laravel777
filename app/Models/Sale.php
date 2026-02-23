@@ -15,12 +15,12 @@ class Sale extends Model //SalesControllerかCompanyControllerからのリクエ
     use HasFactory;
     protected $table = 'sales';//テーブルの紐づけ
 
-    // Salesテーブルに商品IDと購入日時を記録する　Saleモデルに書く（Saleテーブルに対する動作だから）
+    // Salesテーブルに商品IDと購入日時を記録する（Saleテーブルに対する動作だからSaleモデルに書く）
     public function createSale($productId) //Salesコントローラー:50行目に呼び出されるやつ
     {
         DB::table('sales')->insert([
             'product_id' => $productId,     //主キーであるIDと、created_at , updated_atは自動入力されるため不要
-            //'quantity'   => 1,
+            //'quantity' => 1,
             /*↑今回は1個ずつしか購入できない仕様なのでquantityは1で固定しているけど
             そもそもquantityをここに書いてもDBのほうで対応するカラムがないからエラーになる*/
         ]);
@@ -28,7 +28,7 @@ class Sale extends Model //SalesControllerかCompanyControllerからのリクエ
 
     }
 
-    public function products ()
+    public function products ()  //productテーブルへのリレーション　多(sale)対１(product) 一つの製品に対して複数の購入履歴がある
     {
         return $this->belongsTo(Product::class,'App\Models\Product');
     }

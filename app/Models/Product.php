@@ -22,12 +22,12 @@ class Product extends Model
         return $product;
     }
 
-    public function company ()  //companyテーブルへのリレーション　1対多
+    public function company ()  //companyテーブルへのリレーション　多(company)対１(product) 製品に対して複数の会社がある
     {
         return $this->belongsTo(Company::class,'company_id','id');
     }
 
-    public function sale ()     //saleテーブルへのリレーション　１対多
+    public function sale ()     //saleテーブルへのリレーション　１(product)対多(sale) 一つの製品に対して複数の購入履歴がある
     {
         return $this->hasMany(Sale::class,'App\Models\Sale');
     }
