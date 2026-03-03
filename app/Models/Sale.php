@@ -28,9 +28,9 @@ class Sale extends Model //SalesControllerかCompanyControllerからのリクエ
 
     }
 
-    public function products ()  //productテーブルへのリレーション　多(sale)対１(product) 一つの製品に対して複数の購入履歴がある
+    public function product ()  //productテーブルへのリレーション　多(sale)対１(product) 一つの製品に対して複数の購入履歴がある
     {
-        return $this->belongsTo(Product::class,'App\Models\Product');
+        return $this->belongsTo(Product::class); //belongsToを使う場合、関数名は単数形にするのが一般的。引数はリレーション先のモデルクラス名を指定するだけでOK。
     }
 }
 

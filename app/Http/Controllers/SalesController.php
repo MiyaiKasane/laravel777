@@ -46,6 +46,25 @@ class SalesController extends Controller{ //モデルがすぐ使えるように
 
     // 在庫を減少させる
     $this->product_model->decStock($productId); //Productモデル:136行目を呼んでるやつ
+
+    /*class コントローラー名 extends Controller 3)購入処理実施箇所にて、何かエラーがあったときに、テーブル間で齟齬が発生しないようにDBトランザクションを利用すること
+{
+        DB::beginTransaction();
+
+        try {
+            // 例外が発生する可能性のあるコードを記述します
+            // データベースの操作コードや
+            // インスタンスの呼出コードなどを記述します
+        
+             DB::commit(); //データベースに反映します。
+        } catch (Exception $e) {
+            // 例外が発生した場合に行う処理を記述します
+            // $eは任意の名前の変数です
+        
+             DB::rollBack(); // 処理をトランザクション開始まで戻します
+        }
+
+}*/
     
     // Salesテーブルに購入情報を記録する
     $this->sale_model->createSale($productId); //Saleモデル:19行目を呼んでるやつ

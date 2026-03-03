@@ -16,7 +16,7 @@ class CompaniesController extends Controller
 {
     public function showList(Request $request) //Requestを受け取り、検索処理するメソッド
     {
-        $query = Product::query(); //Productモデルのクエリビルダーを作成(データベース上でクエリを実行するための文言)
+        $query = Product::with('company'); // ← 関連テーブル(companyテーブルの内容)を先読みするよという指示
         $companies = Company::all(); //companyモデルから会社データを取得
         $search = $request->input('search'); //requestフォームから送られた該当のsearchを取得
         $company_id = $request->input('company_id'); //requestフォームから送られた該当のidを取得
@@ -30,7 +30,7 @@ class CompaniesController extends Controller
             $query->where('product_name', 'LIKE', "%{$search}%"); //変数searchに値がある場合、product_nameの中で該当する商品を検索する
         }
         if ($company_id) {
-            $query->where('company_id',$company_id); //変数companyIdに値がある場合、company_idの中で該当する商品を検索する
+            $query->where('company_id',$company_id); //変数company_idに値がある場合、company_idの中で該当する商品を検索する
         }
         if (!is_null($min_price) && $min_price !== '') {
             $query->where('price','>=',(int)$min_price); //価格範囲で検索
@@ -161,7 +161,7 @@ class CompaniesController extends Controller
             if(request()->ajax()) { //ここでAjaxだったらjsファイル、そうでなければコントローラーの削除処理で対応？
                 \Log::info('Controllerのajax destroy通過 ID:' . $id);
                 return response()->json(['success' => true]); //削除したら一覧画面にリダイレクト　したいけどうまくいってない
-            }
+            } //2)非同期にて削除したあと、画面を更新しないと削除したアイテムが残り続けてしまします。非同期で削除したら画面更新をせずとも一覧からアイテムが消えるように調整してみてください！
         }
         return redirect()->route('list');
     }
