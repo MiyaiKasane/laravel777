@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; //クエリビルダを使用する宣言
 use Illuminate\Support\Facades\Log;
 use App\Models\Product; // Productモデルを使用
 use App\Models\Sale; // Saleモデルを使用
+use App\Models\Company; //Companyモデルを使うための宣言
+
 
 class SalesController extends Controller{ //モデルがすぐ使えるようになる
     public function __construct(
@@ -44,42 +47,31 @@ class SalesController extends Controller{ //モデルがすぐ使えるように
         return response()->json(['message' => '商品が在庫不足です'], 400);
     }
 
-    // 在庫を減少させる
-    $this->product_model->decStock($productId); //Productモデル:136行目を呼んでるやつ
+    try 
+    {
+        DB::transaction(function()use($productId, $quantity) {
+        $this->product_model->decStock($productId); //在庫を減らす
+        $this->sale_model->createSale($productId); //購入情報をSalesテーブルに記録する
+        });
+            
+        \Log::info('購入できました');
 
-    /*class コントローラー名 extends Controller 3)購入処理実施箇所にて、何かエラーがあったときに、テーブル間で齟齬が発生しないようにDBトランザクションを利用すること
-{
-        DB::beginTransaction();
-
-        try {
-            // 例外が発生する可能性のあるコードを記述します
-            // データベースの操作コードや
-            // インスタンスの呼出コードなどを記述します
-        
-             DB::commit(); //データベースに反映します。
-        } catch (Exception $e) {
-            // 例外が発生した場合に行う処理を記述します
-            // $eは任意の名前の変数です
-        
-             DB::rollBack(); // 処理をトランザクション開始まで戻します
-        }
-
-}*/
-    
-    // Salesテーブルに購入情報を記録する
-    $this->sale_model->createSale($productId); //Saleモデル:19行目を呼んでるやつ
-
-    /*return redirect()
-    ->back()
-    ->with('success', '購入が完了しました'); */
-
-    //レスポンスを返す これはPostmanで動作確認する用
-    return response()->json([
+        return response()->json([
         'message' => '購入成功',
         'product_id' => $productId,
         'quantity' => $quantity,
         'stock_after' => $product->stock - $quantity 
-    ],200);
+        ], 200);
+    }
+        
+    catch (\Exception $e)
+    {
+        \Log::error('エラー：', ['exception' => $e]);
+        return back()->withErrors(['error' => $e->getMessage()]);
+    }
+    
+    /* Salesテーブルに購入情報を記録する
+    $this->sale_model->createSale($productId); //Saleモデル:19行目を呼んでるやつ */
 
     // デバッグ用ログ出力
     /*Log::info('SalesController@store hit', ['data' => $request->all()]);

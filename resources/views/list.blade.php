@@ -96,7 +96,7 @@
                             <form action="{{ route('list.delete', $product->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="delete" type="submit" data-id="{{ $product->id }}" onclick='return confirm("削除しますか？")'>削除</button>
+                                <button class="delete" type="submit" data-id="{{ $product->id }}">削除</button>
                             </form>
                         </td>
                     </tr>
@@ -108,7 +108,8 @@
     @section('scripts')           <!-- ② セクションの開始 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script> <!--tablesorterの読み込み-->
     <script src="{{ asset('js/list.js') }}"></script> <!--list.jsファイルを読み込む-->
-    <script> //以下、tablesorterの設定
+    <script>
+    //以下、tablesorterの設定
         $(function() {
             $('#thsorter').tablesorter({
                 headers:{

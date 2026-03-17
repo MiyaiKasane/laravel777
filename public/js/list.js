@@ -31,7 +31,7 @@ function searchProducts() {  //★1: searchProductsの開始
 
             success: function(response) {   // ★4: Ajax成功時
                 let html = '';
-                response.products.forEach(product => { //なんか会社名の表示がうまくいかない
+                response.products.forEach(product => { 
                     html +=
                         `<tr>
                             <td>${product.id}</td>
@@ -67,32 +67,38 @@ function searchProducts() {  //★1: searchProductsの開始
             }
         }); // ★3の終わり
     }); //★2の終わり
+}; //★1の終わり
 
-    console.log('jsの削除処理が読み込まれました');
-    $(document).on('click', '.delete', function(e) { // ★5: 削除ボタンがクリックされたとき
-        e.preventDefault(); //ページ遷移するのを防ぐ
+console.log('jsの削除処理が読み込まれました');  //削除処理は上記の検索処理とは別にしておく
+$(document).on('click', '.delete', function(e) { // ★5: 削除ボタンがクリックされたとき
+    e.preventDefault(); //ページ遷移するのを防ぐ
         const id = $(this).data('id');
-            console.log('非同期の削除:', id);
-            console.log('削除ボタンおせた', id);
+        const $deleteButton = $(this);
+        
+        console.log('非同期の削除:', id);
+        console.log('削除ボタンおせた', id);
             
-            if (!confirm('削除しますか？')) return;
-            $.ajax({  //ajax:削除の処理
-                    url: 'destroy/' + id,// 必要に応じてパス修正,
-                    type: 'DELETE',
-                    data: {
-                        _method: 'DELETE',
-                        _token: $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function() {// 再検索や行の削除など
-                        alert('削除しました');
+        if (!confirm('削除しますか？')) return;
+        $.ajax({  //ajax:削除の処理
+                url: 'destroy/' + id,// 必要に応じてパス修正,
+                type: 'DELETE',
+                data: {
+                    _method: 'DELETE',
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+
+                success: function() {// 再検索や行の削除など
+                    alert('削除しました');
+                    $deleteButton.closest('tr').fadeOut(300, function() {
+                        $(this).remove();
+                        });
                     },
 
-                    error: function(xhr) {
-                        alert('削除に失敗しました');
+                error: function(xhr) {
+                    alert('削除に失敗しました');
                     }
             }); //ajax:削除の終わり
-    }); // ★5の終わり
-}; //★1の終わり
+}); // ★5の終わり
 
     //ページロード時に呼び出す
     $(function() {
